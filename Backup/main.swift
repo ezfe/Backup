@@ -9,13 +9,14 @@
 import Foundation
 
 let fileManager = FileManager.default
-let backupdir = URL(fileURLWithPath: "/Users/ezekielelin/Backups/", isDirectory: true)
+let backupdir = fileManager.homeDirectoryForCurrentUser.appendingPathComponent("Backups")
+
 
 let dateFormatter = DateFormatter()
 dateFormatter.dateFormat = "yyyy-MM-dd"
 let dateString = dateFormatter.string(from: Date())
 
-for argument in CommandLine.arguments {
+for argument in CommandLine.arguments.dropFirst() {
     let fileURL = URL(fileURLWithPath: argument)
     let uid = UUID().description
     let destinationFolder = backupdir.appendingPathComponent("\(dateString)/\(uid)")
